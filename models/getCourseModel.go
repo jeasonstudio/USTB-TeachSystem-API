@@ -9,9 +9,10 @@ import (
 	"strings"
 
 	"github.com/astaxie/beego"
+	simplejson "github.com/bitly/go-simplejson"
 )
 
-func GetCourseFromLogin(userName string, password string, semestre string) string {
+func GetCourseFromLogin(userName string, password string, semestre string) map[string]interface{} {
 	cookie := login(userName, password)
 
 	return getTrueCourse(cookie, userName, semestre)
@@ -44,7 +45,7 @@ func login(userName string, password string) string {
 	return tagCookies
 }
 
-func getTrueCourse(thatCookie string, userName string, semestre string) string {
+func getTrueCourse(thatCookie string, userName string, semestre string) map[string]interface{} {
 	getTrueCourseURL := beego.AppConfig.String("COURSE_TABLE")
 
 	v := url.Values{"listXnxq": {semestre}, "uid": {userName}}
@@ -66,5 +67,10 @@ func getTrueCourse(thatCookie string, userName string, semestre string) string {
 	defer resp.Body.Close()
 	data, _ := ioutil.ReadAll(resp.Body)
 
-	return string(data)
+	json, err := simplejson.NewJson(data)
+	var nodes = make(map[string]interface{})
+
+	nodes, _ = json.Map()
+
+	return nodes
 }
