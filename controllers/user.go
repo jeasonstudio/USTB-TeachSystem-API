@@ -32,7 +32,9 @@ func (u *UserController) Post() {
 // @router / [get]
 func (u *UserController) GetAll() {
 	users := models.GetAllUsers()
+	uid := u.GetString("uid")
 	u.Data["json"] = users
+	u.Data["json"] = uid
 	u.ServeJSON()
 }
 
@@ -43,7 +45,7 @@ func (u *UserController) GetAll() {
 // @Failure 403 :uid is empty
 // @router /:uid [get]
 func (u *UserController) Get() {
-	uid := u.GetString(":uid")
+	uid := u.GetString("uid")
 	if uid != "" {
 		user, err := models.GetUser(uid)
 		if err != nil {
@@ -51,6 +53,7 @@ func (u *UserController) Get() {
 		} else {
 			u.Data["json"] = user
 		}
+		u.Data["json"] = uid
 	}
 	u.ServeJSON()
 }
@@ -116,4 +119,3 @@ func (u *UserController) Logout() {
 	u.Data["json"] = "logout success"
 	u.ServeJSON()
 }
-
