@@ -25,6 +25,11 @@ func init() {
 				&controllers.GetCourseController{},
 			),
 		),
+		beego.NSNamespace("/cxScore.ustbsu",
+			beego.NSInclude(
+				&controllers.GetCXScoreController{},
+			),
+		),
 	)
 	beego.AddNamespace(ns)
 }
