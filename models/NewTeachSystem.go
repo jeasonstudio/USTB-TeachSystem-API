@@ -99,12 +99,12 @@ func getTrueCXScore(thatCookie string, userName string) map[string]interface{} {
 
 	client := &http.Client{}
 
-	req, err := http.NewRequest(http.MethodPost, getTrueCourseURL, body)
+	req, _ := http.NewRequest(http.MethodPost, getTrueCourseURL, body)
 
-	if err != nil {
-		fmt.Println("Fatal error ", err.Error())
-		os.Exit(0)
-	}
+	// if err != nil {
+	// 	fmt.Println("Fatal error ", err.Error())
+	// 	os.Exit(0)
+	// }
 
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	req.Header.Set("Cookie", "JSESSIONID="+thatCookie)
@@ -117,24 +117,34 @@ func getTrueCXScore(thatCookie string, userName string) map[string]interface{} {
 
 	doc, _ := goquery.NewDocumentFromReader(str)
 
-	var finalCXScore []cxScore
+	var finalCXScore [7]cxScore
 
 	doc.Find(".gridtable tbody tr").Each(func(i int, a *goquery.Selection) {
 		a.Find("td").Each(func(j int, m *goquery.Selection) {
-			finalCXScore[i].Name = "s"
-			finalCXScore[i].CXType = "s"
-			finalCXScore[i].InsertTime = "s"
-			finalCXScore[i].Score = "s"
-			finalCXScore[i].Semestre = "s"
-			fmt.Println(m.Text())
+			switch j {
+			case 0:
+				finalCXScore[i].Semestre = m.Text()
+				break
+			case 1:
+				finalCXScore[i].CXType = m.Text()
+				break
+			case 2:
+				finalCXScore[i].Name = m.Text()
+				break
+			case 3:
+				finalCXScore[i].Score = m.Text()
+				break
+			case 4:
+				finalCXScore[i].InsertTime = m.Text()
+				break
+			}
 		})
 	})
-	a, err := json.Marshal(finalCXScore)
+	a, _ := json.Marshal(finalCXScore)
 
-	jsons, err := simplejson.NewJson(a)
-	// var nodes = make(map[string]interface{})
-
-	nodes, err := jsons.Map()
+	jsons, _ := simplejson.NewJson(a)
+	var nodes = make(map[string]interface{})
+	nodes, _ = jsons.Map()
 
 	return nodes
 }
