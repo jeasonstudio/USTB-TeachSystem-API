@@ -1,0 +1,25 @@
+{
+    "avScore": "76.4",
+    "body": [{
+        "className": "基础外语I",
+        "classNum": "10903021",
+        "classType": "人社管必",
+        "finalScore": "85",
+        "firstScore": "85",
+        "flag": "",
+        "learnHour": "64",
+        "semestre": "2015-2016-1 ",
+        "stuScore": "4"
+    }, {
+        "className": "计算机算法设计",
+        "classNum": "4248002",
+        "classType": "本专业选",
+        "finalScore": "91",
+        "firstScore": "91",
+        "flag": "",
+        "learnHour": "16",
+        "semestre": "2015-2016-1 ",
+        "stuScore": "1"
+    }],
+    "gpa": "2.81"
+}

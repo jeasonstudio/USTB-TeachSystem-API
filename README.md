@@ -7,7 +7,73 @@
  - 提BUG或新API需求，请去Github仓库提issue，或发送邮件到[me@jeasonstudio.cn](mailto:me@jeasonstudio.cn)
  - Author: Jeason
 
+目录：
+ - [新版教务管理系统相关](#新版教务管理系统相关(/v1))
+   - [获取创新学分](#获取创新学分(http://jeasonstudio.cn:8080/v1/cxScore.ustbsu))
+
+
+
+
 ## 新版教务管理系统相关(/v1)
+
+---
+
+### 获取所有成绩(http://jeasonstudio.cn:8080/v1/classScore.ustbsu)
+
+#### HOST: [http://jeasonstudio.cn:8080/v1/classScore.ustbsu](http://jeasonstudio.cn:8080/v1/classScore.ustbsu)
+
+#### REQUEST:
+
+编号 | 参数名 | 值类型 | 是否必须 | 备注
+---|---|---|---|---
+1 | username | string | 是 | 学号 
+2 | password | string | 是 | 新版教务管理系统密码
+
+#### RESPONSE: 
+
+```json
+{
+    "avScore": "76.4",
+    "body": [{
+        "className": "基础外语I",
+        "classNum": "10903021",
+        "classType": "人社管必",
+        "finalScore": "85",
+        "firstScore": "85",
+        "flag": "",
+        "learnHour": "64",
+        "semestre": "2015-2016-1 ",
+        "stuScore": "4"
+    }, {
+        "className": "计算机算法设计",
+        "classNum": "4248002",
+        "classType": "本专业选",
+        "finalScore": "91",
+        "firstScore": "91",
+        "flag": "",
+        "learnHour": "16",
+        "semestre": "2015-2016-1 ",
+        "stuScore": "1"
+    }],
+    "gpa": "2.81"
+}
+```
+
+编号 | 参数名 | 值类型 | 备注
+---|---|---|---|---
+1 | avScore | string | 加权平均分 
+2 | gpa | string | GPA
+3 | className | string | 课程名
+4 | classNum | string | 课程号	
+5 | classType | string | 课程类别	
+6 | finalScore | string | 最终成绩(对外成绩单)		
+7 | firstScore | string | 第一次成绩(排名用)	
+8 | flag | string | 重修补考标志
+9 | learnHour | string | 学时
+10 | semestre | string | 学年学期
+11 | stuScore | string | 学分
+
+---
 
 ### 获取创新学分(http://jeasonstudio.cn:8080/v1/cxScore.ustbsu)
 
@@ -46,8 +112,7 @@
 2 | score | string | 学分
 2 | semestre | string | 学期学年
 
-
-
+---
 
 ### 获取所有课程(/course.ustbsu)
 
