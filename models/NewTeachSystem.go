@@ -202,18 +202,8 @@ func getTrueClassScore(thatCookie string, userName string) map[string]interface{
 	str := strings.NewReader(string(data))
 
 	doc, _ := goquery.NewDocumentFromReader(str)
+
 	var finalClassScore classScore
-
-	doc.Find(".gridtable h5").Each(func(i int, a *goquery.Selection) {
-		switch i {
-		case 0:
-			finalClassScore.GPA = a.Text() //strings.Split(a.Text(), "：")[1]
-		case 1:
-			finalClassScore.AvScore = strings.Split(a.Text(), "：")[1]
-		}
-		beego.Alert(a)
-	})
-
 	var bodyClassScore []bodyScore
 
 	doc.Find(".gridtable tbody tr").Each(func(i int, a *goquery.Selection) {
@@ -251,6 +241,16 @@ func getTrueClassScore(thatCookie string, userName string) map[string]interface{
 		})
 		bodyClassScore = append(bodyClassScore, thisClassScore)
 	})
+
+	doc.Find("h5").Each(func(i int, a *goquery.Selection) {
+		switch i {
+		case 0:
+			finalClassScore.GPA = strings.Split(a.Text(), ":")[1]
+		case 1:
+			finalClassScore.AvScore = strings.Split(a.Text(), ":")[1]
+		}
+	})
+	// beego.Alert(doc.Find("h5").Text())
 
 	finalClassScore.Body = bodyClassScore
 	a, _ := json.Marshal(finalClassScore)
