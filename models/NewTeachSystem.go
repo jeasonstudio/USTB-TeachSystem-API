@@ -85,13 +85,13 @@ func getTrueCourse(thatCookie string, userName string, semestre string) map[stri
 	return nodes
 }
 
-func GetCXScoreFromLogin(userName string, password string) map[string]interface{} {
+func GetCXScoreFromLogin(userName string, password string) []map[string]interface{} {
 	cookie := login(userName, password)
 
 	return getTrueCXScore(cookie, userName)
 }
 
-func getTrueCXScore(thatCookie string, userName string) map[string]interface{} {
+func getTrueCXScore(thatCookie string, userName string) []map[string]interface{} {
 	getTrueCourseURL := beego.AppConfig.String("INNVOATION_SCORE")
 
 	v := url.Values{"uid": {userName}}
@@ -99,12 +99,12 @@ func getTrueCXScore(thatCookie string, userName string) map[string]interface{} {
 
 	client := &http.Client{}
 
-	req, _ := http.NewRequest(http.MethodPost, getTrueCourseURL, body)
+	req, err := http.NewRequest(http.MethodPost, getTrueCourseURL, body)
 
-	// if err != nil {
-	// 	fmt.Println("Fatal error ", err.Error())
-	// 	os.Exit(0)
-	// }
+	if err != nil {
+		fmt.Println("Fatal error ", err.Error())
+		os.Exit(0)
+	}
 
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	req.Header.Set("Cookie", "JSESSIONID="+thatCookie)
@@ -117,34 +117,38 @@ func getTrueCXScore(thatCookie string, userName string) map[string]interface{} {
 
 	doc, _ := goquery.NewDocumentFromReader(str)
 
-	var finalCXScore [7]cxScore
+	var finalCXScore []cxScore
 
 	doc.Find(".gridtable tbody tr").Each(func(i int, a *goquery.Selection) {
+		var thisCXScore cxScore
 		a.Find("td").Each(func(j int, m *goquery.Selection) {
 			switch j {
 			case 0:
-				finalCXScore[i].Semestre = m.Text()
+				thisCXScore.Semestre = m.Text()
 				break
 			case 1:
-				finalCXScore[i].CXType = m.Text()
+				thisCXScore.CXType = m.Text()
 				break
 			case 2:
-				finalCXScore[i].Name = m.Text()
+				thisCXScore.Name = m.Text()
 				break
 			case 3:
-				finalCXScore[i].Score = m.Text()
+				thisCXScore.Score = m.Text()
 				break
 			case 4:
-				finalCXScore[i].InsertTime = m.Text()
+				thisCXScore.InsertTime = m.Text()
 				break
 			}
 		})
+		finalCXScore = append(finalCXScore, thisCXScore)
 	})
 	a, _ := json.Marshal(finalCXScore)
 
-	jsons, _ := simplejson.NewJson(a)
-	var nodes = make(map[string]interface{})
-	nodes, _ = jsons.Map()
-
-	return nodes
+	// beego.Alert(string(a))
+	var final []map[string]interface{}
+	Terr := json.Unmarshal(a, &final)
+	if nil != Terr {
+		beego.Alert(Terr)
+	}
+	return final
 }

@@ -10,5 +10,6 @@ func main() {
 	if beego.BConfig.RunMode == "dev" {
 		beego.BConfig.WebConfig.DirectoryIndex = true
 	}
+	beego.Alert("USTB TeachSystem API Beego Started")
 	beego.Run()
 }
