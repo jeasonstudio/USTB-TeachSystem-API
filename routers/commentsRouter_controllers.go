@@ -6,46 +6,11 @@ import (
 
 func init() {
 
-	beego.GlobalControllerRouter["USTB-TeachSystem-API/controllers:GetScoreController"] = append(beego.GlobalControllerRouter["USTB-TeachSystem-API/controllers:GetScoreController"],
+	beego.GlobalControllerRouter["USTB-TeachSystem-API/controllers:GetCourseController"] = append(beego.GlobalControllerRouter["USTB-TeachSystem-API/controllers:GetCourseController"],
 		beego.ControllerComments{
 			Method: "GetAll",
 			Router: `/`,
 			AllowHTTPMethods: []string{"get"},
-			Params: nil})
-
-	beego.GlobalControllerRouter["USTB-TeachSystem-API/controllers:ObjectController"] = append(beego.GlobalControllerRouter["USTB-TeachSystem-API/controllers:ObjectController"],
-		beego.ControllerComments{
-			Method: "Post",
-			Router: `/`,
-			AllowHTTPMethods: []string{"post"},
-			Params: nil})
-
-	beego.GlobalControllerRouter["USTB-TeachSystem-API/controllers:ObjectController"] = append(beego.GlobalControllerRouter["USTB-TeachSystem-API/controllers:ObjectController"],
-		beego.ControllerComments{
-			Method: "Get",
-			Router: `/:objectId`,
-			AllowHTTPMethods: []string{"get"},
-			Params: nil})
-
-	beego.GlobalControllerRouter["USTB-TeachSystem-API/controllers:ObjectController"] = append(beego.GlobalControllerRouter["USTB-TeachSystem-API/controllers:ObjectController"],
-		beego.ControllerComments{
-			Method: "GetAll",
-			Router: `/`,
-			AllowHTTPMethods: []string{"get"},
-			Params: nil})
-
-	beego.GlobalControllerRouter["USTB-TeachSystem-API/controllers:ObjectController"] = append(beego.GlobalControllerRouter["USTB-TeachSystem-API/controllers:ObjectController"],
-		beego.ControllerComments{
-			Method: "Put",
-			Router: `/:objectId`,
-			AllowHTTPMethods: []string{"put"},
-			Params: nil})
-
-	beego.GlobalControllerRouter["USTB-TeachSystem-API/controllers:ObjectController"] = append(beego.GlobalControllerRouter["USTB-TeachSystem-API/controllers:ObjectController"],
-		beego.ControllerComments{
-			Method: "Delete",
-			Router: `/:objectId`,
-			AllowHTTPMethods: []string{"delete"},
 			Params: nil})
 
 	beego.GlobalControllerRouter["USTB-TeachSystem-API/controllers:UserController"] = append(beego.GlobalControllerRouter["USTB-TeachSystem-API/controllers:UserController"],

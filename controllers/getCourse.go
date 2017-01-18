@@ -7,18 +7,21 @@ import (
 )
 
 // Operations about Users
-type GetScoreController struct {
+type GetCourseController struct {
 	beego.Controller
 }
 
 // @Title GetAll
-// @Description get all Users
-// @Success 200 {object} models.User
+// @Description get all Course
+// @Success 200 {object} models.Course
 // @router / [get]
-func (course *GetScoreController) GetAll() {
+func (course *GetCourseController) GetAll() {
 	userName := course.GetString("username")
 	password := course.GetString("password")
 	semestre := course.GetString("semestre")
+	course.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Origin", "*")             //允许访问所有域
+	course.Ctx.ResponseWriter.Header().Add("Access-Control-Allow-Headers", "Content-Type") //header的类型
+	course.Ctx.ResponseWriter.Header().Set("content-type", "application/json")             //返回数据格式是json
 
 	res := models.GetCourseFromLogin(userName, password, semestre)
 	course.Data["json"] = res

@@ -22,7 +22,7 @@ func init() {
 		// ),
 		beego.NSNamespace("/course.ustbsu",
 			beego.NSInclude(
-				&controllers.GetScoreController{},
+				&controllers.GetCourseController{},
 			),
 		),
 	)
