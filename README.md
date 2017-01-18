@@ -5,6 +5,7 @@
  - Go 语言编写
  - 项目地址：[USTB-TeachSystem-API](https://github.com/jeasonstudio/USTB-TeachSystem-API)
  - 提BUG或新API需求，请去Github仓库提issue，或发送邮件到[me@jeasonstudio.cn](mailto:me@jeasonstudio.cn)
+ - HOSTPATH: http://jeasonstudio.cn:8080
  - Author: Jeason
 
 目录：
