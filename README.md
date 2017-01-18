@@ -6,6 +6,7 @@
  - 项目地址：[USTB-TeachSystem-API](https://github.com/jeasonstudio/USTB-TeachSystem-API)
  - 提BUG或新API需求，请去Github仓库提issue，或发送邮件到[me@jeasonstudio.cn](mailto:me@jeasonstudio.cn)
  - HOSTPATH: http://jeasonstudio.cn:8080
+ - 文档：[点我](https://jeasonstudio.github.io/USTB-TeachSystem-API/)
  - Author: Jeason
 
 目录：
@@ -22,7 +23,9 @@
 
 ### @ 获取所有成绩(/classScore.ustbsu)
 
-#### HOST: [http://jeasonstudio.cn:8080/v1/classScore.ustbsu](http://jeasonstudio.cn:8080/v1/classScore.ustbsu)
+#### HOST: http://jeasonstudio.cn:8080/v1/classScore.ustbsu
+
+### METHOD: GET
 
 #### 请求REQUEST:
 
@@ -79,7 +82,9 @@
 
 ### @ 获取创新学分(/cxScore.ustbsu)
 
-#### HOST: [http://jeasonstudio.cn:8080/v1/cxScore.ustbsu](http://jeasonstudio.cn:8080/v1/cxScore.ustbsu)
+#### HOST: http://jeasonstudio.cn:8080/v1/cxScore.ustbsu
+
+### METHOD: GET
 
 #### 请求REQUEST:
 
@@ -111,14 +116,16 @@
 1 | cxType | string | 创新学分类型
 2 | insertTime | string | 录入时间
 3 | name | string | 课程名
-2 | score | string | 学分
-2 | semestre | string | 学期学年
+4 | score | string | 学分
+5 | semestre | string | 学期学年
 
 ---
 
 ### @ 获取所有课程(/course.ustbsu)
 
-#### HOST: [http://jeasonstudio.cn:8080/v1/course.ustbsu](http://jeasonstudio.cn:8080/v1/course.ustbsu)
+#### HOST: http://jeasonstudio.cn:8080/v1/course.ustbsu
+
+### METHOD: GET
 
 #### 请求REQUEST:
 
@@ -220,7 +227,7 @@ go get github.com/bitly/go-simplejson
 
 开发调试：
 ```bash
-# bee run
+bee run
 ```
 
 打包发布：
