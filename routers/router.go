@@ -30,6 +30,11 @@ func init() {
 				&controllers.GetCXScoreController{},
 			),
 		),
+		beego.NSNamespace("/classScore.ustbsu",
+			beego.NSInclude(
+				&controllers.GetClassScoreController{},
+			),
+		),
 	)
 	beego.AddNamespace(ns)
 }

@@ -13,6 +13,13 @@ func init() {
 			AllowHTTPMethods: []string{"get"},
 			Params: nil})
 
+	beego.GlobalControllerRouter["USTB-TeachSystem-API/controllers:GetClassScoreController"] = append(beego.GlobalControllerRouter["USTB-TeachSystem-API/controllers:GetClassScoreController"],
+		beego.ControllerComments{
+			Method: "GetAll",
+			Router: `/`,
+			AllowHTTPMethods: []string{"get"},
+			Params: nil})
+
 	beego.GlobalControllerRouter["USTB-TeachSystem-API/controllers:GetCourseController"] = append(beego.GlobalControllerRouter["USTB-TeachSystem-API/controllers:GetCourseController"],
 		beego.ControllerComments{
 			Method: "GetAll",

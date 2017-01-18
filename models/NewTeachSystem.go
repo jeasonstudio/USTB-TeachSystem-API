@@ -22,6 +22,24 @@ type cxScore struct {
 	InsertTime string `json:"insertTime"`
 }
 
+type classScore struct {
+	GPA     string      `json:"gpa"`
+	AvScore string      `json:"avScore"`
+	Body    []bodyScore `json:"body"`
+}
+
+type bodyScore struct {
+	Semestre   string `json:"semestre"`
+	ClassNum   string `json:"classNum"`
+	ClassName  string `json:"className"`
+	ClassType  string `json:"classType"`
+	LearnHour  string `json:"learnHour"`
+	StuScore   string `json:"stuScore"`
+	FirstScore string `json:"firstScore"`
+	FinalScore string `json:"finalScore"`
+	Flag       string `json:"flag"`
+}
+
 func login(userName string, password string) string {
 	LoginURL := beego.AppConfig.String("SYSTEM_LOGIN")
 
@@ -146,6 +164,99 @@ func getTrueCXScore(thatCookie string, userName string) []map[string]interface{}
 
 	// beego.Alert(string(a))
 	var final []map[string]interface{}
+	Terr := json.Unmarshal(a, &final)
+	if nil != Terr {
+		beego.Alert(Terr)
+	}
+	return final
+}
+
+func GetClassScoreFromLogin(userName string, password string) map[string]interface{} {
+	cookie := login(userName, password)
+
+	return getTrueClassScore(cookie, userName)
+}
+
+func getTrueClassScore(thatCookie string, userName string) map[string]interface{} {
+	getTrueClassScoreURL := beego.AppConfig.String("ALL_COURSE_SCORE")
+
+	v := url.Values{"uid": {userName}}
+	body := ioutil.NopCloser(strings.NewReader(v.Encode()))
+
+	client := &http.Client{}
+
+	req, err := http.NewRequest(http.MethodPost, getTrueClassScoreURL, body)
+
+	if err != nil {
+		fmt.Println("Fatal error ", err.Error())
+		os.Exit(0)
+	}
+
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	req.Header.Set("Cookie", "JSESSIONID="+thatCookie)
+
+	resp, _ := client.Do(req)
+	defer resp.Body.Close()
+	data, _ := ioutil.ReadAll(resp.Body)
+
+	str := strings.NewReader(string(data))
+
+	doc, _ := goquery.NewDocumentFromReader(str)
+	var finalClassScore classScore
+
+	doc.Find(".gridtable h5").Each(func(i int, a *goquery.Selection) {
+		switch i {
+		case 0:
+			finalClassScore.GPA = a.Text() //strings.Split(a.Text(), "：")[1]
+		case 1:
+			finalClassScore.AvScore = strings.Split(a.Text(), "：")[1]
+		}
+		beego.Alert(a)
+	})
+
+	var bodyClassScore []bodyScore
+
+	doc.Find(".gridtable tbody tr").Each(func(i int, a *goquery.Selection) {
+		var thisClassScore bodyScore
+		a.Find("td").Each(func(j int, m *goquery.Selection) {
+			switch j {
+			case 0:
+				thisClassScore.Semestre = m.Text()
+				break
+			case 1:
+				thisClassScore.ClassNum = m.Text()
+				break
+			case 2:
+				thisClassScore.ClassName = m.Text()
+				break
+			case 3:
+				thisClassScore.ClassType = m.Text()
+				break
+			case 4:
+				thisClassScore.LearnHour = m.Text()
+				break
+			case 5:
+				thisClassScore.StuScore = m.Text()
+				break
+			case 6:
+				thisClassScore.FirstScore = m.Text()
+				break
+			case 7:
+				thisClassScore.FinalScore = m.Text()
+				break
+			case 8:
+				thisClassScore.Flag = m.Text()
+				break
+			}
+		})
+		bodyClassScore = append(bodyClassScore, thisClassScore)
+	})
+
+	finalClassScore.Body = bodyClassScore
+	a, _ := json.Marshal(finalClassScore)
+
+	// beego.Alert(string(a))
+	var final map[string]interface{}
 	Terr := json.Unmarshal(a, &final)
 	if nil != Terr {
 		beego.Alert(Terr)
