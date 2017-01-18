@@ -132,9 +132,9 @@ func getTrueCXScore(thatCookie string, userName string) map[string]interface{} {
 	a, err := json.Marshal(finalCXScore)
 
 	jsons, err := simplejson.NewJson(a)
-	var nodes = make(map[string]interface{})
+	// var nodes = make(map[string]interface{})
 
-	nodes = jsons.Map()
+	nodes, err := jsons.Map()
 
 	return nodes
 }
