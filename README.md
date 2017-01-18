@@ -1,6 +1,149 @@
 
 # USTB-API
-北京科技大学，教务管理系统接口（非官方）
+北科大教务相关 API 接口文档
+
+ - Go 语言编写
+ - 项目地址：[USTB-TeachSystem-API](https://github.com/jeasonstudio/USTB-TeachSystem-API)
+ - 提BUG或新API需求，请去Github仓库提issue，或发送邮件到[me@jeasonstudio.cn](mailto:me@jeasonstudio.cn)
+ - Author: Jeason
+
+## 新版教务管理系统相关(/v1)
+
+### 获取创新学分(http://jeasonstudio.cn:8080/v1/cxScore.ustbsu)
+
+#### HOST: [http://jeasonstudio.cn:8080/v1/cxScore.ustbsu](http://jeasonstudio.cn:8080/v1/cxScore.ustbsu)
+
+#### REQUEST:
+
+编号 | 参数名 | 值类型 | 是否必须 | 备注
+---|---|---|---|---
+1 | username | string | 是 | 学号 
+2 | password | string | 是 | 新版教务管理系统密码
+
+#### RESPONSE: 
+
+```json
+[{
+    "cxType": "报告",
+    "insertTime": "",
+    "name": "APP开发与行业趋势",
+    "score": "0.2",
+    "semestre": " "
+}, {
+    "cxType": "报告",
+    "insertTime": "",
+    "name": "大数据时代与微软云计算",
+    "score": "0.2",
+    "semestre": " "
+}]
+```
+
+编号 | 参数名 | 值类型 | 备注
+---|---|---|---|---
+1 | cxType | string | 创新学分类型
+2 | insertTime | string | 录入时间
+3 | name | string | 课程名
+2 | score | string | 学分
+2 | semestre | string | 学期学年
+
+
+
+
+### 获取所有课程(/course.ustbsu)
+
+#### HOST: [http://jeasonstudio.cn:8080/v1/course.ustbsu](http://jeasonstudio.cn:8080/v1/course.ustbsu)
+
+#### REQUEST:
+
+编号 | 参数名 | 值类型 | 是否必须 | 备注
+---|---|---|---|---
+1 | username | string | 是 | 学号 
+2 | password | string | 是 | 新版教务管理系统密码
+3 | semestre | string | 是 | 学年学期，比如：2016-2017-2
+
+#### RESPONSE: 
+
+> **提示：** 由于此 json 接口是原来的不知道那个老师写的，其中的一些 KEY 值为汉语拼音缩写，大家自己理解。
+
+```json
+{
+    "selectedCourses": [{
+        "SKRS": "97",
+        "XS": "32",
+        "DYXF": "2",
+        "TJR": "41524122",
+        "XH": "41524122",
+        "SFQK": null,
+        "SJCJ": null,
+        "BZ": null,
+        "XM": "赵吉彤",
+        "JXBJ": "计1501",
+        "XB": "男",
+        "DYXS": "32",
+        "SFYXTX": "1",
+        "PTK": [],
+        "XF": "2",
+        "RXNJ": "2015",
+        "BXJZRQ": "2016-09-15",
+        "ID": 17613117,
+        "KCLBM": "公共选修",
+        "DYKCH": "1089096",
+        "SKXSB_ID": 17984823,
+        "KHLX": null,
+        "ZYFX": "计算机科学与技术",
+        "JTLB": "普通",
+        "SKSJDDSTR": "(周4,第6节,1-16周 逸夫楼705) ",
+        "QZ": 0,
+        "SFYXCX": "1",
+        "XXK": [],
+        "SKSJDD": {
+            "66": ["逸夫楼705", "1-16周"],
+            "318": ["逸夫楼705", "1-16周"],
+            "570": ["逸夫楼705", "1-16周"],
+            "486": ["逸夫楼705", "1-16周"],
+            "24": ["逸夫楼705", "1-16周"],
+            "654": ["逸夫楼705", "1-16周"],
+            "192": ["逸夫楼705", "1-16周"],
+            "360": ["逸夫楼705", "1-16周"],
+            "444": ["逸夫楼705", "1-16周"],
+            "276": ["逸夫楼705", "1-16周"],
+            "150": ["逸夫楼705", "1-16周"],
+            "612": ["逸夫楼705", "1-16周"],
+            "108": ["逸夫楼705", "1-16周"],
+            "234": ["逸夫楼705", "1-16周"],
+            "402": ["逸夫楼705", "1-16周"],
+            "528": ["逸夫楼705", "1-16周"]
+        },
+        "DYKCM": "身边的法律",
+        "KCCJ": null,
+        "KXH": "1001",
+        "SFKX": "1",
+        "SSNJ": "2015",
+        "KRL": 100,
+        "SFXZRS": null,
+        "KCLB": "7",
+        "SFCX": null,
+        "PSCJ": null,
+        "XSXZ": "普通学生",
+        "SFSEF": "0",
+        "XNXQ": "2016-2017-1",
+        "JSM": [{
+            "JSM": "徐铭勋"
+        }],
+        "FREERS": "0",
+        "JTZT": "10",
+        "KCM": "身边的法律",
+        "ZJT_ID": null,
+        "TKJZRQ": "2016-09-19",
+        "KCH": "1089096"
+    }],
+    "xnxqLessonPerDay": 6
+}
+```
+
+
+
+
 
 GOOS=linux GOARCH=amd64 go build main.go
 
