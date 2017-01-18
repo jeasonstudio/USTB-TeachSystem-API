@@ -5,3 +5,5 @@
 GOOS=linux GOARCH=amd64 go build main.go
 
 bee pack -be GOOS=linux GOARCH=amd64
+
+nohup ./USTB-TeachSystem-API &
