@@ -29,7 +29,7 @@
 
 #### HOST: http://jeasonstudio.cn:8080/v1/classScore.ustbsu
 
-### METHOD: GET
+#### METHOD: GET
 
 #### 请求REQUEST:
 
@@ -88,7 +88,7 @@
 
 #### HOST: http://jeasonstudio.cn:8080/v1/cxScore.ustbsu
 
-### METHOD: GET
+#### METHOD: GET
 
 #### 请求REQUEST:
 
@@ -129,7 +129,7 @@
 
 #### HOST: http://jeasonstudio.cn:8080/v1/course.ustbsu
 
-### METHOD: GET
+#### METHOD: GET
 
 #### 请求REQUEST:
 
