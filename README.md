@@ -18,18 +18,18 @@
 
 ---
 
-### 获取所有成绩(http://jeasonstudio.cn:8080/v1/classScore.ustbsu)
+### @ 获取所有成绩(/classScore.ustbsu)
 
 #### HOST: [http://jeasonstudio.cn:8080/v1/classScore.ustbsu](http://jeasonstudio.cn:8080/v1/classScore.ustbsu)
 
-#### REQUEST:
+#### 请求REQUEST:
 
 编号 | 参数名 | 值类型 | 是否必须 | 备注
 ---|---|---|---|---
 1 | username | string | 是 | 学号 
 2 | password | string | 是 | 新版教务管理系统密码
 
-#### RESPONSE: 
+#### 响应RESPONSE: 
 
 ```json
 {
@@ -75,18 +75,18 @@
 
 ---
 
-### 获取创新学分(http://jeasonstudio.cn:8080/v1/cxScore.ustbsu)
+### @ 获取创新学分(/cxScore.ustbsu)
 
 #### HOST: [http://jeasonstudio.cn:8080/v1/cxScore.ustbsu](http://jeasonstudio.cn:8080/v1/cxScore.ustbsu)
 
-#### REQUEST:
+#### 请求REQUEST:
 
 编号 | 参数名 | 值类型 | 是否必须 | 备注
 ---|---|---|---|---
 1 | username | string | 是 | 学号 
 2 | password | string | 是 | 新版教务管理系统密码
 
-#### RESPONSE: 
+#### 响应RESPONSE: 
 
 ```json
 [{
@@ -114,11 +114,11 @@
 
 ---
 
-### 获取所有课程(/course.ustbsu)
+### @ 获取所有课程(/course.ustbsu)
 
 #### HOST: [http://jeasonstudio.cn:8080/v1/course.ustbsu](http://jeasonstudio.cn:8080/v1/course.ustbsu)
 
-#### REQUEST:
+#### 请求REQUEST:
 
 编号 | 参数名 | 值类型 | 是否必须 | 备注
 ---|---|---|---|---
@@ -126,7 +126,7 @@
 2 | password | string | 是 | 新版教务管理系统密码
 3 | semestre | string | 是 | 学年学期，比如：2016-2017-2
 
-#### RESPONSE: 
+#### 响应RESPONSE: 
 
 > **提示：** 由于此 json 接口是原来的不知道那个老师写的，其中的一些 KEY 值为汉语拼音缩写，大家自己理解。
 
