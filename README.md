@@ -8,12 +8,11 @@
  - Author: Jeason
 
 目录：
- - [新版教务管理系统相关](#L37)
-   - [获取所有成绩](#22)
-   - [获取创新学分](#78)
-   - [获取所有课程](#119)
-
-
+ - [新版教务管理系统相关](README.md#L37)
+   - [获取所有成绩](README.md#L22)
+   - [获取创新学分](#L78)
+   - [获取所有课程](#L119)
+ - [开发相关]()
 
 
 ## 新版教务管理系统相关(/v1)
@@ -208,12 +207,29 @@
 }
 ```
 
+## 开发相关
 
+安装依赖：
 
+```Go
+go get github.com/astaxie/beego
+go get github.com/PuerkitoBio/goquery
+go get github.com/bitly/go-simplejson
+```
 
+开发调试：
+```bash
+# bee run
+```
 
-GOOS=linux GOARCH=amd64 go build main.go
-
+打包发布：
+```bash
 bee pack -be GOOS=linux GOARCH=amd64
+```
 
+上传到服务器
+
+执行，使用 Linux 做进程守护：
+```bash
 nohup ./USTB-TeachSystem-API &
+```
