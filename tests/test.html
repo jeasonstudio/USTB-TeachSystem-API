@@ -10,10 +10,11 @@
         <script>
             (function() {
                 $.get({
-                    url: "http://localhost:8080/v1/cxScore.ustbsu",
+                    url: "http://ustbsu.cn:8080/v1/examTime.ustbsu",
                     data: {
                         username: "41524122",
-                        password: "07060016"
+                        password: "07060016",
+                        semestre: "2016-2017-1"
                     },
                     dataType: "json",
                     success: function(res) {
