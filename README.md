@@ -263,8 +263,8 @@
 1 | className | string | 课程名
 2 | classNum | string | 课程号
 3 | examLocation | string | 考试地点
-3 | examTime | string | 考试时间
-3 | info | string | 备注信息
+4 | examTime | string | 考试时间
+5 | info | string | 备注信息
 
 
 
