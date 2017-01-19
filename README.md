@@ -44,7 +44,7 @@
 
 ```json
 {
-    "avScore": "76.4",
+    "avScore": "99.9",
     "body": [{
         "className": "基础外语I",
         "classNum": "10903021",
@@ -66,7 +66,7 @@
         "semestre": "2015-2016-1 ",
         "stuScore": "1"
     }],
-    "gpa": "2.81"
+    "gpa": "5.00"
 }
 ```
 
