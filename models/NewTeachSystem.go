@@ -40,6 +40,14 @@ type bodyScore struct {
 	Flag       string `json:"flag"`
 }
 
+type examTime struct {
+	ClassNum     string `json:"classNum"`
+	ClassName    string `json:"className"`
+	ExamTime     string `json:"examTime"`
+	ExamLocation string `json:"examLocation"`
+	Info         string `json:"info"`
+}
+
 func login(userName string, password string) string {
 	LoginURL := beego.AppConfig.String("SYSTEM_LOGIN")
 
@@ -257,6 +265,75 @@ func getTrueClassScore(thatCookie string, userName string) map[string]interface{
 
 	// beego.Alert(string(a))
 	var final map[string]interface{}
+	Terr := json.Unmarshal(a, &final)
+	if nil != Terr {
+		beego.Alert(Terr)
+	}
+	return final
+}
+
+func GetExamTimeFromLogin(userName string, password string, semestre string) []map[string]interface{} {
+	cookie := login(userName, password)
+
+	return getTrueExamTimeScore(cookie, userName, semestre)
+}
+
+func getTrueExamTimeScore(thatCookie string, userName string, semestre string) []map[string]interface{} {
+	getTrueExamTimeScoreURL := beego.AppConfig.String("EXAM_TIMELOCATION")
+
+	v := url.Values{"uid": {userName}, "winName": {"examListPanel"}, "listXnxq": {semestre}}
+	body := ioutil.NopCloser(strings.NewReader(v.Encode()))
+
+	client := &http.Client{}
+
+	req, err := http.NewRequest(http.MethodPost, getTrueExamTimeScoreURL, body)
+
+	if err != nil {
+		fmt.Println("Fatal error ", err.Error())
+		os.Exit(0)
+	}
+
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	req.Header.Set("Cookie", "JSESSIONID="+thatCookie)
+
+	resp, _ := client.Do(req)
+	defer resp.Body.Close()
+	data, _ := ioutil.ReadAll(resp.Body)
+
+	str := strings.NewReader(string(data))
+
+	doc, _ := goquery.NewDocumentFromReader(str)
+
+	var bodyExamTime []examTime
+
+	doc.Find(".gridtable tbody tr").Each(func(i int, a *goquery.Selection) {
+		var thisExamTime examTime
+		a.Find("td").Each(func(j int, m *goquery.Selection) {
+			switch j {
+			case 0:
+				thisExamTime.ClassNum = m.Text()
+				break
+			case 1:
+				thisExamTime.ClassName = m.Text()
+				break
+			case 2:
+				thisExamTime.ExamTime = m.Text()
+				break
+			case 3:
+				thisExamTime.ExamLocation = m.Text()
+				break
+			case 4:
+				thisExamTime.Info = m.Text()
+				break
+			}
+		})
+		bodyExamTime = append(bodyExamTime, thisExamTime)
+	})
+
+	a, _ := json.Marshal(bodyExamTime)
+
+	// beego.Alert(string(a))
+	var final []map[string]interface{}
 	Terr := json.Unmarshal(a, &final)
 	if nil != Terr {
 		beego.Alert(Terr)

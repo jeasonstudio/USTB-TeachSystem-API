@@ -35,6 +35,11 @@ func init() {
 				&controllers.GetClassScoreController{},
 			),
 		),
+		beego.NSNamespace("/examTime.ustbsu",
+			beego.NSInclude(
+				&controllers.GetExamTimeController{},
+			),
+		),
 	)
 	beego.AddNamespace(ns)
 }
