@@ -10,22 +10,24 @@
  - Author: Jeason
 
 目录：
- - [新版教务管理系统相关](#)
+ - [新版教务管理系统相关](#1)
 
-   - [获取所有成绩](#)
+   - [获取所有成绩](#1.1)
  
-   - [获取创新学分](#)
+   - [获取创新学分](#1.2)
  
-   - [获取所有课程](#)
+   - [获取所有课程](#1.3)
+
+   - [获取考试时间地点](#1.4)
  
- - [开发相关](#)
+ - [开发相关](#9.9)
 
 
-## 新版教务管理系统相关(/v1)
+## 1. 新版教务管理系统相关(/v1)
 
 ---
 
-### @ 获取所有成绩(/classScore.ustbsu)
+### 1.1 @ 获取所有成绩(/classScore.ustbsu)
 
 #### HOST: http://jeasonstudio.cn:8080/v1/classScore.ustbsu
 
@@ -84,7 +86,7 @@
 
 ---
 
-### @ 获取创新学分(/cxScore.ustbsu)
+### 1.2 @ 获取创新学分(/cxScore.ustbsu)
 
 #### HOST: http://jeasonstudio.cn:8080/v1/cxScore.ustbsu
 
@@ -125,7 +127,7 @@
 
 ---
 
-### @ 获取所有课程(/course.ustbsu)
+### 1.3 @ 获取所有课程(/course.ustbsu)
 
 #### HOST: http://jeasonstudio.cn:8080/v1/course.ustbsu
 
@@ -219,7 +221,61 @@
 }
 ```
 
-## 开发相关
+---
+
+### 1.4 @ 获取考试时间地点(/examTime.ustbsu)
+
+#### HOST: http://jeasonstudio.cn:8080/v1/examTime.ustbsu
+
+#### METHOD: GET
+
+#### 请求REQUEST:
+
+编号 | 参数名 | 值类型 | 是否必须 | 备注
+---|---|---|---|---
+1 | username | string | 是 | 学号 
+2 | password | string | 是 | 新版教务管理系统密码
+3 | semestre | string | 是 | 学年学期，比如：2015-2016-2
+
+#### 响应RESPONSE: 
+
+```json
+[
+  {
+    "className": "基础外语II",
+    "classNum": "10903022 ",
+    "examLocation": "逸204",
+    "examTime": "6月20日（17周周一）  上午 8:30-10:30",
+    "info": ""
+  },
+  {
+    "className": "工业产品艺术设计及3DS MAX应用",
+    "classNum": "1049021 ",
+    "examLocation": "",
+    "examTime": "  ",
+    "info": "该课程考试时间地点由任课老师课上公布，本系统不发布。"
+  }
+]
+```
+
+编号 | 参数名 | 值类型 | 备注
+---|---|---|---|---
+1 | className | string | 课程名
+2 | classNum | string | 课程号
+3 | examLocation | string | 考试地点
+3 | examTime | string | 考试时间
+3 | info | string | 备注信息
+
+
+
+
+
+
+
+
+---
+
+## 9.9 开发相关
 
 安装依赖：
 
