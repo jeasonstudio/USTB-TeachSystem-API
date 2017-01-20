@@ -45,6 +45,11 @@ func init() {
 				&controllers.GetCetScoreController{},
 			),
 		),
+		beego.NSNamespace("/libBase.ustbsu",
+			beego.NSInclude(
+				&controllers.GetLibBaseController{},
+			),
+		),
 	)
 	beego.AddNamespace(ns)
 }
