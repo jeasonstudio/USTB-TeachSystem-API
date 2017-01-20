@@ -23,6 +23,8 @@
  
  - [开发相关](README.md#L279)
 
+ - [ToDoList]()
+
 
 ## 1. 新版教务管理系统相关(/v1)
 
@@ -302,3 +304,13 @@ bee pack -be GOOS=linux GOARCH=amd64
 ```bash
 nohup ./USTB-TeachSystem-API &
 ```
+
+## ToDoList
+
+ - [ ] 网费缴费和余额等
+
+ - [ ] 志愿工时
+
+ - [ ] 校园卡充值消费余额
+
+ - [ ] 选课相关
