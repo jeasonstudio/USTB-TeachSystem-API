@@ -23,7 +23,7 @@ func (libBase *GetLibBaseController) GetAll() {
 	libBase.Ctx.ResponseWriter.Header().Add("Access-Control-Allow-Headers", "Content-Type") //header的类型
 	libBase.Ctx.ResponseWriter.Header().Set("content-type", "application/json")             //返回数据格式是json
 
-	res := models.LibLogin(userName, password, userName)
+	res := models.LibLoginInfo(userName, password)
 	libBase.Data["json"] = res
 	libBase.ServeJSON()
 }
