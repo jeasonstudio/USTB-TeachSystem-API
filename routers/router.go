@@ -40,6 +40,11 @@ func init() {
 				&controllers.GetExamTimeController{},
 			),
 		),
+		beego.NSNamespace("/cetScore.ustbsu",
+			beego.NSInclude(
+				&controllers.GetCetScoreController{},
+			),
+		),
 	)
 	beego.AddNamespace(ns)
 }

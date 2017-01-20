@@ -20,6 +20,8 @@
    - [获取所有课程](README.md#L131)
 
    - [获取考试时间地点](README.md#L227)
+
+   - [获取英语/小语种四六级成绩]()
  
  - [开发相关](README.md#L279)
 
@@ -269,6 +271,35 @@
 4 | examTime | string | 考试时间
 5 | info | string | 备注信息
 
+
+---
+
+### 1.4 @ 获取英语/小语种四六级成绩(/cetScore.ustbsu)(已废弃！)
+
+#### HOST: http://jeasonstudio.cn:8080/v1/cetScore.ustbsu
+
+#### METHOD: GET
+
+#### 请求REQUEST:
+
+编号 | 参数名 | 值类型 | 是否必须 | 备注
+---|---|---|---|---
+1 | username | string | 是 | 学号 
+2 | password | string | 是 | 新版教务管理系统密码
+
+#### 响应RESPONSE: 
+
+编号 | 参数名 | 值类型 | 备注
+---|---|---|---|---
+1 | langLevel | string |  语种级别
+2 | card | string |  准考证
+3 | listenScore | string | 听力分
+4 | ReadScore | string | 阅读
+5 | WriteScore | string | 写作
+5 | otherScore | string | 综合
+5 | allScore | string | 总成绩
+5 | date | string | 考试日期
+5 | info | string | 备注消息
 
 
 

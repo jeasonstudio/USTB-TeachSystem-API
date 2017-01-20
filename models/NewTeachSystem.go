@@ -48,6 +48,18 @@ type examTime struct {
 	Info         string `json:"info"`
 }
 
+type cetScore struct {
+	LangLevel   string `json:"langLevel"`
+	Card        string `json:"card"`
+	ListenScore string `json:"listenScore"`
+	ReadScore   string `json:"readScore"`
+	WriteScore  string `json:"writeScore"`
+	OtherScore  string `json:"otherScore"`
+	AllScore    string `json:"allScore"`
+	Date        string `json:"date"`
+	Info        string `json:"info"`
+}
+
 func login(userName string, password string) string {
 	LoginURL := beego.AppConfig.String("SYSTEM_LOGIN")
 
@@ -331,6 +343,88 @@ func getTrueExamTimeScore(thatCookie string, userName string, semestre string) [
 	})
 
 	a, _ := json.Marshal(bodyExamTime)
+
+	// beego.Alert(string(a))
+	var final []map[string]interface{}
+	Terr := json.Unmarshal(a, &final)
+	if nil != Terr {
+		beego.Alert(Terr)
+	}
+	return final
+}
+
+// 四六级成绩
+func GetCETScoreFromLogin(userName string, password string) []map[string]interface{} {
+	cookie := login(userName, password)
+
+	return getTrueCETScoreScore(cookie, userName)
+}
+
+func getTrueCETScoreScore(thatCookie string, userName string) []map[string]interface{} {
+	getTrueCETScoreURL := beego.AppConfig.String("CET_SCORE")
+
+	v := url.Values{"uid": {userName}}
+	body := ioutil.NopCloser(strings.NewReader(v.Encode()))
+
+	client := &http.Client{}
+
+	req, err := http.NewRequest(http.MethodPost, getTrueCETScoreURL, body)
+
+	if err != nil {
+		fmt.Println("Fatal error ", err.Error())
+		os.Exit(0)
+	}
+
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	req.Header.Set("Cookie", "JSESSIONID="+thatCookie)
+
+	resp, _ := client.Do(req)
+	defer resp.Body.Close()
+	data, _ := ioutil.ReadAll(resp.Body)
+
+	str := strings.NewReader(string(data))
+
+	doc, _ := goquery.NewDocumentFromReader(str)
+
+	var bodyCetScore []cetScore
+
+	doc.Find(".gridtable tbody tr").Each(func(i int, a *goquery.Selection) {
+		var thisCetScore cetScore
+		a.Find("td").Each(func(j int, m *goquery.Selection) {
+			switch j {
+			case 0:
+				thisCetScore.LangLevel = m.Text()
+				break
+			case 1:
+				thisCetScore.Card = m.Text()
+				break
+			case 2:
+				thisCetScore.ListenScore = m.Text()
+				break
+			case 3:
+				thisCetScore.ReadScore = m.Text()
+				break
+			case 4:
+				thisCetScore.WriteScore = m.Text()
+				break
+			case 5:
+				thisCetScore.OtherScore = m.Text()
+				break
+			case 6:
+				thisCetScore.AllScore = m.Text()
+				break
+			case 7:
+				thisCetScore.Date = m.Text()
+				break
+			case 8:
+				thisCetScore.Info = m.Text()
+				break
+			}
+		})
+		bodyCetScore = append(bodyCetScore, thisCetScore)
+	})
+
+	a, _ := json.Marshal(bodyCetScore)
 
 	// beego.Alert(string(a))
 	var final []map[string]interface{}
