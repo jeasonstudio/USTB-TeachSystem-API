@@ -33,29 +33,30 @@ func LibLoginInfo(username string, password string) map[string]interface{} {
 	getLibReaderLoginURL := beego.AppConfig.String("LIB_READER_LOGIN")
 	getCodeURL := beego.AppConfig.String("GET_CODE")
 	getLibBaseURL := beego.AppConfig.String("LIB_LOGIN")
-	getLibInfoURL := beego.AppConfig.String("LIB_INFO")
+	// getLibInfoURL := beego.AppConfig.String("LIB_INFO")
+	getLibBookListURL := beego.AppConfig.String("LIB_BOOKLIST")
 
 	s := grequests.NewSession(nil)
 	s.Get(getLibReaderLoginURL, nil)
-	//获取验证码
+	// 获取验证码
 	s.Get(getCodeURL, nil)
+
 	option := &grequests.RequestOptions{
 		Params: map[string]string{"number": username,
 			"passwd": password, "captcha": "1",
 			"select": "cert_no", "returnUrl": ""},
 	}
 	s.Post(getLibBaseURL, option)
-	resp, _ := s.Get(getLibInfoURL, nil)
+	resp, _ := s.Get(getLibBookListURL, nil)
+
 	beego.Alert(resp.String())
 	doc, _ := goquery.NewDocumentFromReader(strings.NewReader(resp.String()))
 	var thisUser userInfo
 
-	doc.Find("TD").Each(func(i int, a *goquery.Selection) {
+	doc.Find("tr ").Each(func(i int, a *goquery.Selection) {
 		beego.Alert(a.Text())
 	})
-
 	// beego.Alert(resp.String())
-
 	a, _ := json.Marshal(thisUser)
 
 	// beego.Alert(string(a))
@@ -67,7 +68,3 @@ func LibLoginInfo(username string, password string) map[string]interface{} {
 
 	return final
 }
-
-// func getInfo(se *Session) {
-
-// }
