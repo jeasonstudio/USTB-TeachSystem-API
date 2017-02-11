@@ -1,0 +1,144 @@
+FORMAT: 1A
+HOST: http://jeasonstudio.cn:8080
+
+# 北科大教务相关 API 接口文档
+
+ - Go 语言编写
+ - 项目地址：[USTB-TeachSystem-API](https://github.com/jeasonstudio/USTB-TeachSystem-API)
+ - 提BUG或新API需求，请去Github仓库提issue，或发送邮件到[me@jeasonstudio.cn](mailto:me@jeasonstudio.cn)
+ - Author: Jeason
+ 
+## 新版教务系统 [/v1]
+
+### 获取所有课程 [GET]
+
++ Request (text/html)
+
+    {
+        username: "4152xxxx",   //学号
+        password: "00000000",   //新版教务系统密码
+        semestre: "2016-2017-2" //学年学期，比如2016-2017-2
+    }
+
+
++ Response 200 (application/json)
+
+        {
+    "selectedCourses": [{
+        "SKRS": "97",
+        "XS": "32",
+        "DYXF": "2",
+        "TJR": "41524122",
+        "XH": "41524122",
+        "SFQK": null,
+        "SJCJ": null,
+        "BZ": null,
+        "XM": "赵吉彤",
+        "JXBJ": "计1501",
+        "XB": "男",
+        "DYXS": "32",
+        "SFYXTX": "1",
+        "PTK": [],
+        "XF": "2",
+        "RXNJ": "2015",
+        "BXJZRQ": "2016-09-15",
+        "ID": 17613117,
+        "KCLBM": "公共选修",
+        "DYKCH": "1089096",
+        "SKXSB_ID": 17984823,
+        "KHLX": null,
+        "ZYFX": "计算机科学与技术",
+        "JTLB": "普通",
+        "SKSJDDSTR": "(周4,第6节,1-16周 逸夫楼705) ",
+        "QZ": 0,
+        "SFYXCX": "1",
+        "XXK": [],
+        "SKSJDD": {
+            "66": ["逸夫楼705", "1-16周"],
+            "318": ["逸夫楼705", "1-16周"],
+            "570": ["逸夫楼705", "1-16周"],
+            "486": ["逸夫楼705", "1-16周"],
+            "24": ["逸夫楼705", "1-16周"],
+            "654": ["逸夫楼705", "1-16周"],
+            "192": ["逸夫楼705", "1-16周"],
+            "360": ["逸夫楼705", "1-16周"],
+            "444": ["逸夫楼705", "1-16周"],
+            "276": ["逸夫楼705", "1-16周"],
+            "150": ["逸夫楼705", "1-16周"],
+            "612": ["逸夫楼705", "1-16周"],
+            "108": ["逸夫楼705", "1-16周"],
+            "234": ["逸夫楼705", "1-16周"],
+            "402": ["逸夫楼705", "1-16周"],
+            "528": ["逸夫楼705", "1-16周"]
+        },
+        "DYKCM": "身边的法律",
+        "KCCJ": null,
+        "KXH": "1001",
+        "SFKX": "1",
+        "SSNJ": "2015",
+        "KRL": 100,
+        "SFXZRS": null,
+        "KCLB": "7",
+        "SFCX": null,
+        "PSCJ": null,
+        "XSXZ": "普通学生",
+        "SFSEF": "0",
+        "XNXQ": "2016-2017-1",
+        "JSM": [{
+            "JSM": "徐铭勋"
+        }],
+        "FREERS": "0",
+        "JTZT": "10",
+        "KCM": "身边的法律",
+        "ZJT_ID": null,
+        "TKJZRQ": "2016-09-19",
+        "KCH": "1089096"
+    }],
+    "xnxqLessonPerDay": 6
+}
+
+### Create a New Question [POST]
+
+You may create your own question using this action. It takes a JSON
+object containing a question and a collection of answers in the
+form of choices.
+
++ Request (application/json)
+
+        {
+            "question": "Favourite programming language?",
+            "choices": [
+                "Swift",
+                "Python",
+                "Objective-C",
+                "Ruby"
+            ]
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /questions/2
+
+    + Body
+
+            {
+                "question": "Favourite programming language?",
+                "published_at": "2015-08-05T08:40:51.620Z",
+                "choices": [
+                    {
+                        "choice": "Swift",
+                        "votes": 0
+                    }, {
+                        "choice": "Python",
+                        "votes": 0
+                    }, {
+                        "choice": "Objective-C",
+                        "votes": 0
+                    }, {
+                        "choice": "Ruby",
+                        "votes": 0
+                    }
+                ]
+            }
