@@ -2,9 +2,9 @@ package models
 
 import (
 	"encoding/json"
-	"strings"
+	"net/http"
+	"net/url"
 
-	"github.com/PuerkitoBio/goquery"
 	"github.com/astaxie/beego"
 	"github.com/levigross/grequests"
 )
@@ -34,12 +34,20 @@ func LibLoginInfo(username string, password string) map[string]interface{} {
 	getCodeURL := beego.AppConfig.String("GET_CODE")
 	getLibBaseURL := beego.AppConfig.String("LIB_LOGIN")
 	// getLibInfoURL := beego.AppConfig.String("LIB_INFO")
-	getLibBookListURL := beego.AppConfig.String("LIB_BOOKLIST")
+	// getLibBookListURL := beego.AppConfig.String("LIB_BOOKLIST")
 
 	s := grequests.NewSession(nil)
 	s.Get(getLibReaderLoginURL, nil)
 	// 获取验证码
-	s.Get(getCodeURL, nil)
+	// s.Get(getCodeURL+"?code=41524122", nil)
+	codeResp, _ := http.PostForm(getCodeURL, url.Values{"code": {username}})
+	// body, _ := ioutil.ReadAll(codeResp.Body)
+	beego.Alert(GifToString(codeResp.Body))
+
+	// cc := bytes.NewReader(body)
+
+	// beego.Alert(cc)
+	// png.Encode(cc)
 
 	option := &grequests.RequestOptions{
 		Params: map[string]string{"number": username,
@@ -47,15 +55,15 @@ func LibLoginInfo(username string, password string) map[string]interface{} {
 			"select": "cert_no", "returnUrl": ""},
 	}
 	s.Post(getLibBaseURL, option)
-	resp, _ := s.Get(getLibBookListURL, nil)
+	// resp, _ := s.Get(getLibBookListURL, nil)
 
-	beego.Alert(resp.String())
-	doc, _ := goquery.NewDocumentFromReader(strings.NewReader(resp.String()))
+	// beego.Alert(resp.String())
+	// doc, _ := goquery.NewDocumentFromReader(strings.NewReader(resp.String()))
 	var thisUser userInfo
 
-	doc.Find("tr ").Each(func(i int, a *goquery.Selection) {
-		beego.Alert(a.Text())
-	})
+	// doc.Find("tr ").Each(func(i int, a *goquery.Selection) {
+	// 	beego.Alert(a.Text())
+	// })
 	// beego.Alert(resp.String())
 	a, _ := json.Marshal(thisUser)
 
@@ -63,7 +71,7 @@ func LibLoginInfo(username string, password string) map[string]interface{} {
 	var final map[string]interface{}
 	Terr := json.Unmarshal(a, &final)
 	if nil != Terr {
-		beego.Alert(Terr)
+		// beego.Alert(Terr)
 	}
 
 	return final
